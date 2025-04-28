@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rent_details', function (Blueprint $table) {
+        Schema::create('loan_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->constrained('items')->cascadeOnDelete();
-            $table->foreignId('rent_id')->constrained('rents')->cascadeOnDelete();
+            $table->foreignId('loan_id')->constrained('loans')->cascadeOnDelete();
             $table->integer('quantity_borrowed');
-            $table->text('condition_on_return')->nullable();
             $table->enum('status', ['borrowed', 'returned'])->default('borrowed');
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rent_details');
+        Schema::dropIfExists('loan_details');
     }
 };

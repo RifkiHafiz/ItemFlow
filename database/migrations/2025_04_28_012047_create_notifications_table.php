@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rents_id')->nullable()->constrained('rents')->cascadeOnDelete();
+            $table->foreignId('loan_id')->nullable()->constrained('loans')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->text('message');
             $table->boolean('read')->default(false);

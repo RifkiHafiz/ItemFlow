@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class rentDetail extends Model
+class loanDetail extends Model
 {
     //
 }
