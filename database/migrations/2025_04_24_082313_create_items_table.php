@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->text('condition')->nullable();
+            $table->enum('status', ['available', 'borrowed', 'maintenance'])->default('available');
             $table->integer('quantity_item');
             $table->timestamps();
         });

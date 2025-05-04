@@ -10,6 +10,11 @@ Route::get('/', function () {
     return view('landingpage');
 });
 
+Route::get('/assign-operator', function() {
+    auth()->user()->assignRole('operator');
+    return 'Anda sekarang operator!';
+});
+
 Route::get('/dashboard', Dashboard::class)->name('dashboard')->middleware('auth');
 
 

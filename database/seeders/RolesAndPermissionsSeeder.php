@@ -30,5 +30,14 @@ class RolesAndPermissionsSeeder extends Seeder
         $operatorRole->givePermissionTo($addItemPermission);
 
         $userRole->givePermissionTo($addRentPermission);
+
+        $operator = \App\Models\User::create([
+            'username' => 'operator',
+            'email' => 'operator@example.com',
+            'password' => bcrypt('password123'),
+            'full_name' => 'Operator Sistem'
+        ]);
+
+        $operator->assignRole('operator');
     }
 }

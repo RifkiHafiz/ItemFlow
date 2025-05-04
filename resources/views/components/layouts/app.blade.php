@@ -8,6 +8,15 @@
     </head>
     <body>
         {{ $slot }}
+        <script>
+            window.addEventListener('open-loan-modal', () => {
+                document.getElementById('add-loan-modal').classList.remove('hidden');
+            });
+
+            window.addEventListener('close-loan-modal', () => {
+                document.getElementById('add-loan-modal').classList.add('hidden');
+            });
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     </body>
 </html>
