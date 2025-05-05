@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     {
 //         User::factory(10)->create();
 
-//        Category::factory()->create([
-//            'name' => 'Technology',
-//            'description' => 'bla bla bla',
-//            'unit' => 'pcs',
-//        ]);
+        Category::factory()->create([
+            'name' => 'Technology',
+            'description' => 'bla bla bla',
+            'unit' => 'pcs',
+        ]);
 
         Item::factory()->create([
             'name' => 'Infocus',
