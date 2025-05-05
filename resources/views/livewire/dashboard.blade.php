@@ -42,6 +42,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th class="px-6 py-3">Peminjam</th>
+                    <th class="px-6 py-3">Barang</th>
                     <th class="px-6 py-3">Tanggal Pinjam</th>
                     <th class="px-6 py-3">Tanggal Kembali</th>
                     <th class="px-6 py-3">Tujuan</th>
@@ -53,6 +54,9 @@
                 @foreach($loans as $loan)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-6 py-4">{{ $loan->borrower->full_name }}</td>
+                        @foreach($details as $detail)
+                            <td class="px-6 py-4">{{ $detail->item->name ?? 'No' }}</td>
+                        @endforeach
                         <td class="px-6 py-4">{{ $loan->loan_date }}</td>
                         <td class="px-6 py-4">{{ $loan->planned_return_date }}</td>
                         <td class="px-6 py-4">{{ Str::limit($loan->purpose, 20) }}</td>
@@ -69,11 +73,11 @@
                                 <div class="flex gap-2">
                                     <button wire:click="approveLoan({{ $loan->id }})"
                                             class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">
-                                        Terima
+                                        Accept
                                     </button>
                                     <button wire:click="rejectLoan({{ $loan->id }})"
                                             class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                                        Tolak
+                                        Reject
                                     </button>
                                 </div>
                             @endif

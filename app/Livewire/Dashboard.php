@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Item;
 use App\Models\Loan;
+use App\Models\loanDetail;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
@@ -88,6 +89,7 @@ class Dashboard extends Component
         return view('livewire.dashboard', [
             'user' => Auth::user(),
             'items' => Item::all(),
+            'details' => LoanDetail::all(),
             'loans' => $this->loans ?? collect()
         ]);
     }

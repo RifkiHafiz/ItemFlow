@@ -18,4 +18,8 @@ class loanDetail extends Model
         return $this->hasMany(Loan::class);
     }
 
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }
