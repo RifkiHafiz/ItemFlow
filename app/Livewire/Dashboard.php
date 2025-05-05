@@ -10,13 +10,13 @@ use Spatie\Permission\Models\Role;
 
 class Dashboard extends Component
 {
+    public $loans;
+
     public $selectedItem;
     public function selectItem($itemId)
     {
-        $this->dispatch('itemSelected', itemId: $itemId); // kirim event ke komponen lain
+        $this->dispatch('itemSelected', itemId: $itemId);
     }
-
-    public $loans; // Tambah property untuk loans
 
     public function approveLoan($loanId)
     {
@@ -32,7 +32,7 @@ class Dashboard extends Component
             $loan->update([
                 'status' => 'approved',
                 'operator_id' => Auth::id(),
-                'loan_date' => now() // Jika perlu update tanggal aktual
+                'loan_date' => now()
             ]);
 
             session()->flash('success', 'Loan approved successfully');
@@ -55,7 +55,7 @@ class Dashboard extends Component
             $loan->update([
                 'status' => 'rejected',
                 'operator_id' => Auth::id(),
-                'actual_return_date' => now() // Jika perlu update tanggal penolakan
+                'actual_return_date' => now()
             ]);
 
             session()->flash('success', 'Loan rejected successfully');
@@ -67,7 +67,6 @@ class Dashboard extends Component
 
     public function mount()
     {
-        // Jika user adalah operator, ambil data loans
         if(auth()->user()->hasRole('operator')) {
             $this->loans = Loan::with('borrower')
                 ->orderBy('created_at', 'desc')

@@ -43,19 +43,19 @@ class CreateLoan extends Component
         try {
             $loan = Loan::create([
                 'borrower_id' => Auth::id(),
-                'operator_id' => Auth::id(), // Jika operator adalah borrower
+                'operator_id' => Auth::id(),
                 'purpose' => $this->purpose,
                 'loan_date' => $this->loan_date,
                 'planned_return_date' => $this->planned_return_date,
                 'note' => $this->note,
-                'status' => 'pending' // Sesuaikan dengan enum di database
+                'status' => 'pending'
             ]);
 
             LoanDetail::create([
                 'loan_id' => $loan->id,
                 'item_id' => $this->item_id,
                 'quantity_borrowed' => $this->quantity_borrowed,
-                'status' => 'borrowed', // Pastikan sesuai tipe data di database
+                'status' => 'borrowed',
             ]);
 
             DB::commit();
