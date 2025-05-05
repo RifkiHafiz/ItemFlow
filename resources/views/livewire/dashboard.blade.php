@@ -115,4 +115,6 @@
             </div>
         </div>
     </div>
+
+    <x-loading />
 </div>
