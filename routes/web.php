@@ -15,6 +15,11 @@ Route::get('/assign-operator', function() {
     return 'Anda sekarang operator!';
 });
 
+Route::get('/assign-admin', function() {
+    auth()->user()->assignRole('admin');
+    return 'Anda sekarang admin!';
+});
+
 Route::get('/dashboard', Dashboard::class)->name('dashboard')->middleware('auth');
 
 

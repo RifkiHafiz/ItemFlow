@@ -14,22 +14,9 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::create(['name' => 'admin']);
-        $operatorRole = Role::create(['name' => 'operator']);
-        $userRole = Role::create(['name' => 'user']);
-
-        $addItemPermission = Permission::create(['name' => 'add item']);
-        $acceptRentPermission = Permission::create(['name' => 'accept rent']);
-        $addRentPermission = Permission::create(['name' => 'add rent']);
-
-        $adminRole->givePermissionTo($addItemPermission);
-        $adminRole->givePermissionTo($acceptRentPermission);
-        $adminRole->givePermissionTo($addRentPermission);
-
-        $operatorRole->givePermissionTo($acceptRentPermission);
-        $operatorRole->givePermissionTo($addItemPermission);
-
-        $userRole->givePermissionTo($addRentPermission);
+        Role::firstOrCreate(['name' => 'admin']);
+        Role::firstOrCreate(['name' => 'operator']);
+        Role::firstOrCreate(['name' => 'user']);
 
         $operator = \App\Models\User::create([
             'username' => 'operator',
@@ -39,5 +26,14 @@ class RolesAndPermissionsSeeder extends Seeder
         ]);
 
         $operator->assignRole('operator');
+
+        $admin = \App\Models\User::create([
+            'username' => 'admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('admin123'),
+            'full_name' => 'Admin Sistem'
+        ]);
+
+        $admin->assignRole('admin');
     }
 }
