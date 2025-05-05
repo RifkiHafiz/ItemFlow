@@ -31,7 +31,7 @@
     @endif
 
 
-    @if($user->hasAllRoles(['admin', 'operator']))
+    @if($user->hasRole('admin') || $user->hasRole('operator'))
     <button data-modal-target="logout-modal" data-modal-toggle="logout-modal" class="flex items-center gap-3 hover:text-blue-500"><i class="fa-solid fa-right-from-bracket"></i>Log Out</button>
     <button data-modal-target="add-item-modal" data-modal-toggle="add-item-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i class="fa-solid fa-right-from-bracket"></i>Add Item</button>
     <div class="mt-8 p-4 bg-white rounded-lg shadow-sm dark:bg-gray-800">
@@ -51,39 +51,41 @@
                 </tr>
                 </thead>
                 <tbody>
+                @if ($loans)
                 @foreach($loans as $loan)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <td class="px-6 py-4">{{ $loan->borrower->full_name }}</td>
-                        @foreach($details as $detail)
-                            <td class="px-6 py-4">{{ $detail->item->name ?? 'No' }}</td>
-                        @endforeach
-                        <td class="px-6 py-4">{{ $loan->loan_date }}</td>
-                        <td class="px-6 py-4">{{ $loan->planned_return_date }}</td>
-                        <td class="px-6 py-4">{{ Str::limit($loan->purpose, 20) }}</td>
-                        <td class="px-6 py-4">
-                        <span class="px-2 py-1 text-sm rounded-full
-                            @if($loan->status == 'pending') bg-yellow-100 text-yellow-800
-                            @elseif($loan->status == 'approved') bg-green-100 text-green-800
-                            @else bg-red-100 text-red-800 @endif">
-                            {{ $loan->status }}
-                        </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            @if($loan->status == 'pending')
-                                <div class="flex gap-2">
-                                    <button wire:click="approveLoan({{ $loan->id }})"
-                                            class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">
-                                        Accept
-                                    </button>
-                                    <button wire:click="rejectLoan({{ $loan->id }})"
-                                            class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                                        Reject
-                                    </button>
-                                </div>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4">{{ $loan->borrower->full_name }}</td>
+                    @foreach($details as $detail)
+                        <td class="px-6 py-4">{{ $detail->item->name ?? 'No' }}</td>
+                    @endforeach
+                    <td class="px-6 py-4">{{ $loan->loan_date }}</td>
+                    <td class="px-6 py-4">{{ $loan->planned_return_date }}</td>
+                    <td class="px-6 py-4">{{ Str::limit($loan->purpose, 20) }}</td>
+                    <td class="px-6 py-4">
+                    <span class="px-2 py-1 text-sm rounded-full
+                        @if($loan->status == 'pending') bg-yellow-100 text-yellow-800
+                        @elseif($loan->status == 'approved') bg-green-100 text-green-800
+                        @else bg-red-100 text-red-800 @endif">
+                        {{ $loan->status }}
+                    </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        @if($loan->status == 'pending')
+                            <div class="flex gap-2">
+                                <button wire:click="approveLoan({{ $loan->id }})"
+                                        class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">
+                                    Accept
+                                </button>
+                                <button wire:click="rejectLoan({{ $loan->id }})"
+                                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                                    Reject
+                                </button>
+                            </div>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+                @endif
                 </tbody>
             </table>
         </div>

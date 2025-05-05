@@ -68,7 +68,7 @@ class Dashboard extends Component
 
     public function mount()
     {
-        if(auth()->user()->hasRole('operator')) {
+        if(auth()->user()->hasRole('operator') || auth()->user()->hasRole('admin')) {
             $this->loans = Loan::with('borrower')
                 ->orderBy('created_at', 'desc')
                 ->get();
